@@ -4,6 +4,8 @@ This is a simple **Item CRUD** (Create, Read, Update, Delete) API for managing i
 
 ---
 
+**Zip File**: [Download the full source code as a Zip file](https://drive.google.com/drive/folders/17XcACrpcvRYd129-O6EaTQ7VUt2ydu7m?usp=sharing)
+
 ## Server Address
 
 The backend server is already deployed and accessible at:
