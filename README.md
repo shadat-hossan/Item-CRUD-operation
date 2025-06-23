@@ -1,142 +1,113 @@
-# Backend
+# Item CRUD API Documentation
 
-This is a Backend Initial Setup using Monolithic MVC Architecture. It is designed for scalable and secure applications, providing authentication, real-time communication, and secure API endpoints to support both web and mobile platforms.
-
-## 📌 Features
-
-- ✅ User authentication with **JWT & Passport.js**
-- ✅ Real-time communication using **Socket.io**
-- ✅ Secure API with **Express.js** and **MongoDB**
-- ✅ Payment processing via **Stripe**
-- ✅ Input validation with **Joi**
-- ✅ Security middleware: **Helmet, CORS, Express-Rate-Limit, xss-clean, express-mongo-sanitize**
-- ✅ API documentation with **Swagger**
-- ✅ File uploads with **Multer**
-- ✅ Logging with **Winston** and **Morgan**
-- ✅ Email services with **Nodemailer**
-- ✅ Geolocation support using **geoip-country**
-- ✅ Data compression with **compression**
-- ✅ Status monitoring with **express-status-monitor**
+This is a simple **Item CRUD** (Create, Read, Update, Delete) API for managing items with various operations, including uploading images, handling item details, and performing basic operations like querying, creating, updating, and deleting items. The API is designed to be easy to use and integrate with other services or applications.
 
 ---
 
-## 🛠 Technologies Used
+## Server Address
 
-| Technology                                                              | Purpose                 |
-| ----------------------------------------------------------------------- | ----------------------- |
-| **Node.js**                                                             | Backend runtime         |
-| **Express.js**                                                          | Web framework           |
-| **MongoDB & Mongoose**                                                  | Database & ODM          |
-| **Socket.io**                                                           | Real-time communication |
-| **JWT & Passport.js**                                                   | Authentication          |
-| **Stripe API**                                                          | Payments                |
-| **Swagger**                                                             | API documentation       |
-| **Helmet, CORS, Express-Rate-Limit, xss-clean, express-mongo-sanitize** | Security                |
-| **Multer**                                                              | File uploads            |
-| **Nodemailer**                                                          | Email services          |
-| **GeoIP-Country**                                                       | Geolocation             |
-| **Compression**                                                         | Data compression        |
-| **Express-Status-Monitor**                                              | Monitoring              |
+The backend server is already deployed and accessible at:
 
----
+**Server URL**: [https://itemcrud8088.sobhoy.com](https://itemcrud8088.sobhoy.com)
 
-## 📥 Installation
+## Postman Collection
 
-### 1️⃣ Clone the repository
+You can import the Postman collection to test the API endpoints directly. The collection includes all the requests, headers, and example responses:
 
-```sh
-git clone https://github.com/shadat-hossan/Backend-Setup-Monolithic-MVC-Architecture.git
-cd Backend-Setup-Monolithic-MVC-Architecture
+[Postman Collection Link](https://www.postman.com/medical-product/workspace/rest-api-s-just-for-item-crud/request/39875957-9a89b621-51cf-4ca8-8f48-332f634408c8?action=share&creator=39875957&ctx=documentation)
+
+## API Setup Instructions
+
+### 1. Clone the Repository
+
+To get started, clone the repository from GitHub:
+
+```bash
+git clone https://github.com/shadat-hossan/Item-CRUD-operation.git
 ```
 
-### 2️⃣ Install dependencies
+### 2. Install Dependencies
 
-```sh
+```bash
+cd Item-CRUD-operation
 npm install
 ```
 
-### 3️⃣ Setup environment variables
+### 3. Setup Environment Variables
 
-Create a `.env` file and configure the required environment variables:
+You don’t need to set up the database as it is already configured. However, you will need to configure the .env file for backend settings.
 
-```ini
-PORT=3000
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-STRIPE_SECRET=your_stripe_secret
-EMAIL_SERVICE=your_email_service
-EMAIL_USER=your_email
-EMAIL_PASSWORD=your_email_password
+1. Open the .env file in the root directory.
+
+2. Change the BACKEND_IP to your local machine's IP address.
+
+```
+BACKEND_IP=your_local_ip_address
 ```
 
-### 4️⃣ Run the server
+### 4. Start the Server
 
-```sh
+Once you have installed the dependencies and updated the environment variables, you can start the server:
+
+```
 npm run dev
 ```
+Your backend server should now be running and accessible at http://your_IP:8088. or http://localhost:8088.
 
----
+## API Endpoints
 
-## 🚀 API Endpoints
+Below are the available API routes for the Item CRUD operations:
 
-The API documentation is available through **Swagger**. You can access it at:
+### 1. Create Item (POST /create)
 
+Create a new item. You can upload images, specify item details, and add extra information.
+
+Required Fields:
+
+- itemName
+
+- SKU
+
+- UPC
+
+- itemPrice
+
+- itemImages
+
+- category
+
+
+### 2. Create Item (POST /create-live-item)
+
+Create a live item with similar fields as the regular item, but for live-streaming purposes.
+
+### 3. Get All Items (GET /all)
+
+Retrieve all items based on query parameters like filtering by category, SKU, price, etc.
+
+### 4. Get Item by ID (GET /:itemId)
+
+Retrieve an item by its ID.
+
+### 5. Update Item (PATCH /:itemId)
+
+Update an existing item by its ID. You can update fields like item name, price, images, and additional info.
+
+### 6. Delete Item (DELETE /:itemId)
+
+Delete an item by its ID. This will mark the item as deleted (soft delete).
+
+## API Request Example (Create Item)
+
+# POST /create
 ```
-http://your-ip:3000
+{
+  "itemName": "Item Name",
+  "itemPrice": 100,
+  "itemColor": ["Red", "Blue"],
+  "itemSize": ["M", "L"],
+  "itemImages": ["/uploads/items/image1.jpg", "/uploads/items/image2.jpg"],
+  "category": "Electronics",
+  "additionalInfo": "{\"info\": \"Extra details about the item\"}"
+}
 ```
-
-### 🔑 Authentication
-
-| Method | Endpoint                       | Description         |
-| ------ | ------------------------------ | ------------------- |
-| POST   | `/api/v1/auth/register`        | Register a new user |
-| POST   | `/api/v1/auth/login`           | Login user          |
-| POST   | `/api/v1/auth/verify-email`    | Verify email        |
-| POST   | `/api/v1/auth/forgot-password` | Forgot password     |
-| POST   | `/api/v1/auth/reset-password`  | Reset password      |
-| POST   | `/api/v1/auth/change-password` | Change password     |
-| POST   | `/api/v1/auth/logout`          | Logout user         |
-
-### 👤 User Profile
-
-| Method | Endpoint                    | Description         |
-| ------ | --------------------------- | ------------------- |
-| GET    | `/api/v1/users/self/in`     | Get user profile    |
-| PATCH  | `/api/v1/users/self/update` | Update user profile |
-| POST   | `/api/v1/auth/delete-me`    | Delete user account |
-
----
-
-## 🛠 Available Scripts
-
-| Script          | Description                                   |
-| --------------- | --------------------------------------------- |
-| `npm run dev`   | Runs the app in development mode with nodemon |
-| `npm run build` | Builds the project using Webpack              |
-| `npm run seed`  | Runs the database seeder                      |
-| `npm test`      | Runs tests (not yet implemented)              |
-
----
-
-## 📄 License
-
-This project is licensed under the **ISC License**.
-
----
-
-## 🤝 Contribution
-
-Feel free to fork this repository and submit pull requests.
-
----
-
-## 📧 Contact
-
-**Authors**: [Md. Shadat Hossain](mailto:shadathossan3500@gmail.com) & Sahinur Islam
-
-If you have any questions, feel free to reach out!
-
----
-
-### 🌟 Star the repo if you like it! ⭐
-
